@@ -11,7 +11,7 @@ time */
 a two argument function, one with input
 and one with modified output. But exercise
 asks for a single arg function */
-int reverse(char line[]);
+void reverse(char line[]);
 int get_line_with_arbitrary_length(char s[], int limit);
 
 int main()
@@ -30,11 +30,10 @@ int main()
 }
 
 /* reverse takes string s and reverses its contents,
-excluding any trailing newline;
-it returns the length of the line */
-int reverse(char s[])
+excluding any trailing newline */
+void reverse(char s[])
 {
-    return 0;
+
 }
 
 /* Read as much of the line into s as is within the limit;
