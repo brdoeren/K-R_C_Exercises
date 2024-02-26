@@ -33,7 +33,23 @@ int main()
 excluding any trailing newline */
 void reverse(char s[])
 {
+    int line_length, i;
+    char c;
 
+    for (i = 0; s[i] != '\0'; ++i);
+    /* Must skip last char '\n' */
+    line_length = i - 2;
+    i = 0;
+
+    while (line_length > i)
+    {
+        c = s[line_length];
+        s[line_length] = s[i];
+        s[i] = c;
+
+        --line_length;
+        ++i;
+    }
 }
 
 /* Read as much of the line into s as is within the limit;
