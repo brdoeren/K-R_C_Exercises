@@ -46,6 +46,7 @@ int get_line_with_arbitrary_length(char s[], int limit)
     i continues to track arbitrary length */
     for (i = 0; (c = getchar()) != EOF && c != '\n'; ++i)
     {
+
         if (i < limit - 1)
         {
             s[i] = c;
@@ -72,5 +73,6 @@ int get_line_with_arbitrary_length(char s[], int limit)
     }
 
     s[end_of_line] = '\0';
+
     return i;
 }
