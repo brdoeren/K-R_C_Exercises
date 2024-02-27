@@ -10,7 +10,7 @@ set of tab stops, say every 'n' columns. Should
 #define MAX_LINE_LENGTH 1000
 
 int get_line_with_arbitrary_length(char s[], int limit);
-
+void convert_tabs_to_spaces(char source[], char result[], int tab_stop_spaces);
 
 int main()
 {
@@ -22,6 +22,11 @@ int main()
     }
 
     return 0;
+}
+
+void convert_tabs_to_spaces(char s[], char r[], int tab_stop_spaces)
+{
+
 }
 
 /* Read as much of the line into s as is within the limit;
