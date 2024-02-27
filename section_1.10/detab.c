@@ -36,7 +36,7 @@ void convert_tabs_to_spaces(char s[], char r[], int tab_stop_spaces)
     int length, i, j;
     for(length = 0; s[length] != '\0'; ++length);
 
-    for(i = 0; i < length; ++i)
+    for(i = 0, j = 0; i < length + 1; ++i)
     {
         /*
         Find tabs in original line
@@ -51,9 +51,23 @@ void convert_tabs_to_spaces(char s[], char r[], int tab_stop_spaces)
         the offset of the current index from the
         previous tab stop
         */
+
         if (s[i] == '\t')
         {
-
+            /* Tabs are converted into spaces
+            that lead up to the next tab stop */
+            int number_blanks = tab_stop_spaces - (i % tab_stop_spaces);
+            while (number_blanks > 0)
+            {
+                r[j] = ' ';
+                ++j;
+                --number_blanks;
+            }
+        }
+        else
+        {
+            r[j] = s[i];
+            ++j;
         }
     }
 
