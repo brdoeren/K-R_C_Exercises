@@ -11,7 +11,7 @@ should be given preference? */
 #define MAX_LINE_LENGTH 1000
 
 int get_line_with_arbitrary_length(char s[], int limit);
-void convert_tabs_to_spaces(char source[], char result[], int tab_stop_spaces);
+void convert_spaces_to_tabs(char source[], char result[], int tab_stop_spaces);
 
 int main()
 {
@@ -20,28 +20,29 @@ int main()
 
     while(get_line_with_arbitrary_length(line, MAX_LINE_LENGTH) > 0)
     {
-        convert_tabs_to_spaces(line, converted_line, TAB_STOP_SPACES);
+        convert_spaces_to_tabs(line, converted_line, TAB_STOP_SPACES);
         printf("%s", converted_line);
     }
 
     return 0;
 }
 
-/* Takes string s and converts the tabs in s into spaces
-and stores the result in r, tab_stop_spaces indicates the
-number of blanks per fixed tab stop. Gives best fit result
-when the length of r exceeds MAX_LINE_LENGTH */
-void convert_tabs_to_spaces(char s[], char r[], int tab_stop_spaces)
+/* Takes string s and converts groups of blanks into
+tabs to achieve the same spacing based on the given
+tab_stop_spaces, and stores the result in string r. */
+void convert_spaces_to_tabs(char s[], char r[], int tab_stop_spaces)
 {
-    int length, i, j;
-    for(length = 0; s[length] != '\0'; ++length);
+    int i, j;
 
-    for(i = 0, j = 0; i < length + 1; ++i)
+    /* Iterate through string without
+    calculating length */
+    for(i = 0, j = 0; s[i] != '\0'; ++i)
     {
+        /*
         if (s[i] == '\t')
         {
-            /* Tabs are converted into spaces
-            that lead up to the next tab stop */
+             Tabs are converted into spaces
+            that lead up to the next tab stop
             int number_blanks = tab_stop_spaces - (j % tab_stop_spaces);
             while (number_blanks > 0)
             {
@@ -55,6 +56,7 @@ void convert_tabs_to_spaces(char s[], char r[], int tab_stop_spaces)
             r[j] = s[i];
             ++j;
         }
+        */
     }
 
 }
