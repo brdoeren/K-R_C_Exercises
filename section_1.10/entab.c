@@ -32,31 +32,28 @@ tabs to achieve the same spacing based on the given
 tab_stop_spaces, and stores the result in string r. */
 void convert_spaces_to_tabs(char s[], char r[], int tab_stop_spaces)
 {
-    int i, j;
+    int blank_accumulator, i, j;
+    blank_accumulator = 0;
 
     /* Iterate through string without
     calculating length */
     for(i = 0, j = 0; s[i] != '\0'; ++i)
     {
-        /*
-        if (s[i] == '\t')
+        // If we find a blank
+        // Is it the first blank? -> ba = 0
+        // Or the next in a group? -> ba > 0
+        // If in a group -> ba > 0
+        // Do we have enough blanks to convert into a tab? -> ba > tbs
+        if (s[i] == ' ')
         {
-             Tabs are converted into spaces
-            that lead up to the next tab stop
-            int number_blanks = tab_stop_spaces - (j % tab_stop_spaces);
-            while (number_blanks > 0)
-            {
-                r[j] = ' ';
-                ++j;
-                --number_blanks;
-            }
+            ++blank_accumulator;
         }
         else
         {
+            blank_accumulator = 0;
             r[j] = s[i];
             ++j;
         }
-        */
     }
 
 }
