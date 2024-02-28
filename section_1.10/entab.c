@@ -36,25 +36,39 @@ void convert_spaces_to_tabs(char s[], char r[], int tab_stop_spaces)
     blank_accumulator = 0;
 
     /* Iterate through string without
-    calculating length */
+    calculating length, stops at '\0'
+    in the source string so result must
+    add '\0' at end */
     for(i = 0, j = 0; s[i] != '\0'; ++i)
     {
-        // If we find a blank
-        // Is it the first blank? -> ba = 0
-        // Or the next in a group? -> ba > 0
-        // If in a group -> ba > 0
-        // Do we have enough blanks to convert into a tab? -> ba > tbs
         if (s[i] == ' ')
         {
             ++blank_accumulator;
+
+            /* Enough blanks are converted into one tab */
+            if (blank_accumulator >= tab_stop_spaces)
+            {
+                r[j] = '\t';
+                ++j;
+            }
         }
         else
         {
-            blank_accumulator = 0;
+            /* If not blank, then just take what
+            blanks we have and add them to result
+            and reset accumulator */
+            while(blank_accumulator > 0)
+            {
+                r[j] = ' ';
+                ++j;
+                --blank_accumulator;
+            }
+
             r[j] = s[i];
             ++j;
         }
     }
+    r[j] = '\0';
 
 }
 
@@ -96,4 +110,3 @@ int get_line_with_arbitrary_length(char s[], int limit)
     s[end_of_line] = '\0';
     return i;
 }
-
