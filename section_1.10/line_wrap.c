@@ -9,7 +9,7 @@ before the specified column. */
 #include <stdio.h>
 
 #define MAX_LINE_LENGTH 1000
-#define DESIRED_LINE_LENGTH 80
+#define DESIRED_LINE_LENGTH 10
 
 int get_line_with_arbitrary_length(char s[], int limit);
 void fold_long_line(char source[], char result[], int line_wrap);
@@ -21,7 +21,7 @@ int main()
 
     while(get_line_with_arbitrary_length(line, MAX_LINE_LENGTH) > 0)
     {
-        printf("%s", line);
+        //printf("%s", line);
         fold_long_line(line, folded_line, DESIRED_LINE_LENGTH);
         printf("%s", folded_line);
     }
@@ -40,32 +40,49 @@ void fold_long_line(char s[], char r[], int line_wrap)
 
     for(i = 0, j = 0; s[i] != '\0'; ++i)
     {
-        /* This case is not possible
-        in this program */
-        if (s[i] == '\n')
+        if (s[i] == ' ' || s[i] == '\n')
         {
-            length_accumulator = 0;
+            /* ONLY copy to result when we find blank
+            so char_accumulator is run down every time
+            we run into blank */
+
+            /* Preform split if necessary
+            else reset char accumulator
+            and copy as normal */
+            if (length_accumulator > line_wrap)
+            {
+                length_accumulator = 0;
+                r[j] = '\n';
+                ++j;
+            }
+            while (char_accumulator > 0)
+            {
+                r[j] = s[i - char_accumulator];
+                ++j;
+                --char_accumulator;
+            }
+            ++length_accumulator;
+            r[j] = s[i];
+            ++j;
+
         }
         /* If current char is not blank
         keep track of current length of chars
         so that if the length of line exceeds
         desired length, the current group of
         chars can be moved to the new line */
-        if (s[i] != ' ')
+        else
         {
             ++char_accumulator;
             ++length_accumulator;
             /* Account for special case where
             the group of chars are greater
             than the desired length of a line */
+            if (char_accumulator >= line_wrap)
+            {
+
+            }
         }
-        /* Line split happens on blank */
-        else
-        {
-
-        }
-
-
     }
     r[j] = '\0';
 
