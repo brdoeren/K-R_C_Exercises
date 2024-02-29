@@ -9,19 +9,66 @@ before the specified column. */
 #include <stdio.h>
 
 #define MAX_LINE_LENGTH 1000
+#define DESIRED_LINE_LENGTH 80
 
 int get_line_with_arbitrary_length(char s[], int limit);
+void fold_long_line(char source[], char result[], int line_wrap);
 
 int main()
 {
     char line[MAX_LINE_LENGTH];
+    char folded_line[MAX_LINE_LENGTH];
 
     while(get_line_with_arbitrary_length(line, MAX_LINE_LENGTH) > 0)
     {
         printf("%s", line);
+        fold_long_line(line, folded_line, DESIRED_LINE_LENGTH);
+        printf("%s", folded_line);
     }
 
     return 0;
+}
+
+/* Takes string s and splits it into multiple
+lines based on value of line_wrap; stores result
+in string r. */
+void fold_long_line(char s[], char r[], int line_wrap)
+{
+    int i, j, length_accumulator, char_accumulator;
+    length_accumulator = 0;
+    char_accumulator = 0;
+
+    for(i = 0, j = 0; s[i] != '\0'; ++i)
+    {
+        /* This case is not possible
+        in this program */
+        if (s[i] == '\n')
+        {
+            length_accumulator = 0;
+        }
+        /* If current char is not blank
+        keep track of current length of chars
+        so that if the length of line exceeds
+        desired length, the current group of
+        chars can be moved to the new line */
+        if (s[i] != ' ')
+        {
+            ++char_accumulator;
+            ++length_accumulator;
+            /* Account for special case where
+            the group of chars are greater
+            than the desired length of a line */
+        }
+        /* Line split happens on blank */
+        else
+        {
+
+        }
+
+
+    }
+    r[j] = '\0';
+
 }
 
 /* Read as much of the line into s as is within the limit;
