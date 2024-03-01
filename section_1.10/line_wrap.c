@@ -49,8 +49,10 @@ void fold_long_line(char s[], char r[], int line_wrap)
             /* Preform split if necessary
             else reset char accumulator
             and copy as normal */
-            if (length_accumulator > line_wrap)
+            if (length_accumulator >= line_wrap)
             {
+                printf("line break with len_acc: %2d, char_acc: %2d\n", length_accumulator, char_accumulator);
+
                 length_accumulator = 0;
                 r[j] = '\n';
                 ++j;
@@ -80,7 +82,18 @@ void fold_long_line(char s[], char r[], int line_wrap)
             than the desired length of a line */
             if (char_accumulator >= line_wrap)
             {
+                while (char_accumulator > line_wrap - 1)
+                {
+                    r[j] = s[i - char_accumulator];
+                    ++j;
+                    --char_accumulator;
+                }
 
+                r[j] = '-';
+                ++j;
+                r[j] = '\n';
+                ++j;
+                length_accumulator = 0;
             }
         }
     }
