@@ -9,7 +9,7 @@ before the specified column. */
 #include <stdio.h>
 
 #define MAX_LINE_LENGTH 1000
-#define DESIRED_LINE_LENGTH 10
+#define DESIRED_LINE_LENGTH 10 // Short for debugging purposes
 
 int get_line_with_arbitrary_length(char s[], int limit);
 void fold_long_line(char source[], char result[], int line_wrap);
